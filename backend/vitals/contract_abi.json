@@ -1,0 +1,58 @@
+[
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "transactionId",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "recordHash",
+				"type": "string"
+			}
+		],
+		"name": "RecordAnchored",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "transactionId",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "recordHash",
+				"type": "string"
+			}
+		],
+		"name": "storeRecordHash",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "transactionId",
+				"type": "string"
+			}
+		],
+		"name": "getRecordHash",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
