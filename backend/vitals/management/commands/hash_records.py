@@ -1,6 +1,6 @@
-import hashlib
 from django.core.management.base import BaseCommand
 from vitals.models import PatientVital
+from vitals.services.hashing import compute_record_hash
 
 class Command(BaseCommand):
     help = "Generate SHA-256 hash for each patient record"
@@ -11,21 +11,8 @@ class Command(BaseCommand):
         self.stdout.write(f"Hashing {records.count()} records...")
 
         for record in records:
-            data_string = (
-                f"{record.patient_id}|"
-                f"{record.timestamp.isoformat()}|"
-                f"{record.heart_rate}|"
-                f"{record.spo2}|"
-                f"{record.body_temperature}|"
-                f"{record.transaction_id}"
-            )
+            record.record_hash = compute_record_hash(record)
+            record.save(update_fields=["record_hash"])
 
-            record_hash = hashlib.sha256(data_string.encode()).hexdigest()
+        self.stdout.write(self.style.SUCCESS("Hash generation completed."))
 
-            # For now, just print first few hashes
-            if record.id <= 5:
-                self.stdout.write(
-                    f"TX_ID: {record.transaction_id} → HASH: {record_hash}"
-                )
-
-        self.stdout.write("Hash generation completed.")
