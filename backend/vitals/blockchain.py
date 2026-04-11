@@ -14,7 +14,7 @@ ABI_PATH = os.path.join(BASE_DIR, "contract_abi.json")
 with open(ABI_PATH, "r") as f:
     contract_abi = json.load(f)
 
-CONTRACT_ADDRESS = web3.to_checksum_address("0x419A0686ac2738eBe3a5F2E584051B4fc4A2C42b")
+CONTRACT_ADDRESS = web3.to_checksum_address("0xA7216bAc4B34f865b093B987d19A9472eb8825a1")
 
 contract = web3.eth.contract(
     address=CONTRACT_ADDRESS,

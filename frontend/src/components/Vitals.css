@@ -1,0 +1,51 @@
+/* VITAL GRID */
+.vitals {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.vital-card {
+  background: white;
+  color: black;
+  padding: 20px;
+  border-radius: 16px;
+}
+
+.vital-card h2 {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.vital-grid {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.vital-item {
+  flex: 1;
+  margin: 5px;
+  padding: 12px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.heart {
+  background: linear-gradient(135deg, #ff4d4f, #ff7875);
+}
+
+.spo2 {
+  background: linear-gradient(135deg, #1890ff, #69c0ff);
+}
+
+.temp {
+  background: linear-gradient(135deg, #52c41a, #95de64);
+}
+
+.chart-container {
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+}

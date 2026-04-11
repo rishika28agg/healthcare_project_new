@@ -19,7 +19,6 @@ class Command(BaseCommand):
                     heart_rate=int(row["heart_rate_(bpm)"]),
                     spo2=float(row["spo2_level_(%)"]),
                     body_temperature=float(row["body_temperature_(Â°f)"]),
-                    transaction_id=row["transaction_ID"],
                 )
 
         self.stdout.write("CSV loaded successfully")

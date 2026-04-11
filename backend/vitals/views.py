@@ -1,21 +1,35 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from vitals.models import PatientVital
+from accounts.models import DoctorPatientMapping
+from .models import PatientVital
 
-@api_view(["GET"])
-def get_patient_data(request, patient_id):
-    records = PatientVital.objects.filter(patient_id=patient_id).order_by("timestamp")
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_patient_records(request, patient_id):
+    user = request.user
+    profile = user.userprofile
+    role = profile.role
 
-    data = []
-    for r in records:
-        data.append({
-            "timestamp": r.timestamp,
-            "heart_rate": r.heart_rate,
-            "spo2": r.spo2,
-            "body_temperature": r.body_temperature
-        })
+    # PATIENT access
+    if role == "patient":
+        if profile.dataset_patient_id != int(patient_id):
+            return Response({"error": "Unauthorized"}, status=403)
 
-    return Response(data)
+    # DOCTOR access
+    elif role == "doctor":
+        is_assigned = DoctorPatientMapping.objects.filter(
+            doctor=user,
+            patient__userprofile__dataset_patient_id=patient_id
+        ).exists()
+
+        if not is_assigned:
+            return Response({"error": "Access denied"}, status=403)
+
+    # FETCH DATA (IMPORTANT CHANGE)
+    records = PatientVital.objects.filter(patient_id=patient_id)
+
+    return Response(list(records.values()))
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
