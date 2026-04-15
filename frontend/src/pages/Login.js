@@ -20,26 +20,42 @@ function Login({ setToken }) {
   };
 
   return (
-    <div className="container">
-      <div className="card">
-        <h2>Login</h2>
+    <div className="login-page">
+      <div className="login-card">
+        <div className="login-header">
+          <h1>Welcome Back</h1>
+          <p>Sign in to your account</p>
+        </div>
 
-        <input
-          className="input"
-          placeholder="Username"
-          onChange={(e) => setUsername(e.target.value)}
-        />
+        <div className="login-body">
+          <label htmlFor="username">Username</label>
+          <input
+            id="username"
+            className="login-input"
+            placeholder="Enter your username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
 
-        <input
-          className="input"
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <label htmlFor="password">Password</label>
+          <input
+            id="password"
+            className="login-input"
+            type="password"
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-        <button className="btn btn-primary" onClick={login}>
-          Login
-        </button>
+          <button className="login-button" onClick={login}>
+            <span>Sign In</span>
+            <span className="button-icon">↗</span>
+          </button>
+
+          <p className="login-footer">
+            Don't have an account? <a href="#register">Register here</a>
+          </p>
+        </div>
       </div>
     </div>
   );
